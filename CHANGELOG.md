@@ -1,4 +1,5 @@
-### UNRELEASED
+### v0.11.0+v0.30.0
+- TODO fill in
 
 ### v0.10.0+v0.29.4
 - **BREAKING** Upgrade to [uniFFI 0.29.4](https://mozilla.github.io/uniffi-rs/latest/Upgrading.html) [#124](https://github.com/NordSecurity/uniffi-bindgen-cs/issues/124)
