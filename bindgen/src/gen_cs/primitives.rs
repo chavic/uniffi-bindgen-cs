@@ -5,7 +5,7 @@
 use super::CodeType;
 use paste::paste;
 use uniffi_bindgen::interface::{Radix, Type};
-use uniffi_bindgen::{backend::Literal, ComponentInterface};
+use uniffi_bindgen::{interface::Literal, ComponentInterface};
 
 fn render_literal(literal: &Literal) -> String {
     fn typed_number(type_: &Type, num_str: String) -> String {
