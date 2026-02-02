@@ -12,8 +12,9 @@ use askama::Template;
 use heck::{ToLowerCamelCase, ToUpperCamelCase};
 use serde::{Deserialize, Serialize};
 
-use uniffi_bindgen::backend::Type;
+use uniffi_bindgen::interface::Type;
 use uniffi_bindgen::interface::*;
+use uniffi_meta::DefaultValueMetadata;
 use uniffi_bindgen::ComponentInterface;
 
 mod callback_interface;
@@ -389,7 +390,7 @@ impl CsCodeOracle {
             FfiType::UInt8 => "byte".to_string(),
             FfiType::Float32 => "float".to_string(),
             FfiType::Float64 => "double".to_string(),
-            FfiType::RustArcPtr(_) => "IntPtr".to_string(),
+            // RustArcPtr removed in UniFFI 0.30 - using Handle instead
             FfiType::RustBuffer(_) => "RustBuffer".to_string(),
             FfiType::ForeignBytes => "ForeignBytes".to_string(),
             FfiType::Callback(_) => "IntPtr".to_string(),
