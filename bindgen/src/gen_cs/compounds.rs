@@ -5,14 +5,20 @@
 use super::CodeType;
 use paste::paste;
 use uniffi_bindgen::{
-    backend::{Literal, Type},
+    interface::{DefaultValue, Literal, Type},
     ComponentInterface,
 };
 
 fn render_literal(literal: &Literal, inner: &Type, ci: &ComponentInterface) -> String {
     match literal {
         Literal::None => "null".into(),
-        Literal::Some { inner: meta } => super::CsCodeOracle.find(inner).literal(meta, ci),
+        Literal::Some { inner: meta } => {
+            // In UniFFI 0.30, meta is Box<DefaultValue>
+            match meta.as_ref() {
+                DefaultValue::Literal(lit) => super::CsCodeOracle.find(inner).literal(lit, ci),
+                DefaultValue::Default => "default".into(),
+            }
+        }
 
         // details/1-empty-list-as-default-method-parameter.md
         Literal::EmptySequence => "null".into(),

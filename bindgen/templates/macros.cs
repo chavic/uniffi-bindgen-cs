@@ -95,7 +95,11 @@
     {%- for arg in func.arguments() -%}
         {{ arg|type_name(ci) }} {{ arg.name()|var_name -}}
         {%- match arg.default_value() %}
-        {%- when Some with(literal) %} = {{ literal|render_literal(arg, ci) }}
+        {%- when Some with(defval) %}
+            {%- match defval %}
+            {%- when DefaultValue::Literal with(literal) %} = {{ literal|render_literal(arg, ci) }}
+            {%- when DefaultValue::Default %} = default
+            {%- endmatch %}
         {%- else %}
         {%- endmatch %}
         {%- if !loop.last %}, {% endif -%}
