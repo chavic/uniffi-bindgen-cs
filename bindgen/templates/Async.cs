@@ -31,9 +31,9 @@ internal static class _UniFFIAsync {
         }
     }
 
-    public class UniffiForeignFutureFreeCallback
+    public class UniffiForeignFutureDroppedCallback
     {
-        public static _UniFFILib.UniffiForeignFutureFree callback = Callback;
+        public static _UniFFILib.UniffiForeignFutureDroppedCallback callback = Callback;
 
         public static void Callback(ulong handle)
         {

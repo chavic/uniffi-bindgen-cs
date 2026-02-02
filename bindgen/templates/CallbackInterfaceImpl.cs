@@ -114,7 +114,7 @@ class {{ callback_impl_name }} {
             var foreignHandle = _UniFFIAsync._foreign_futures_map.Insert(cts);
             unsafe {
                 (*(_UniFFILib.UniffiForeignFuture*)uniffiOutReturn).handle = foreignHandle;
-                (*(_UniFFILib.UniffiForeignFuture*)uniffiOutReturn).free = Marshal.GetFunctionPointerForDelegate(_UniFFIAsync.UniffiForeignFutureFreeCallback.callback);;
+                (*(_UniFFILib.UniffiForeignFuture*)uniffiOutReturn).dropped = Marshal.GetFunctionPointerForDelegate(_UniFFIAsync.UniffiForeignFutureDroppedCallback.callback);;
             }
             {%- endif %}
         } else {
