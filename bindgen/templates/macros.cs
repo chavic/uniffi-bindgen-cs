@@ -58,8 +58,18 @@
         (IntPtr future, IntPtr continuation, IntPtr data) => _UniFFILib.{{ func.ffi_rust_future_poll(ci) }}(future, continuation, data),
         // Complete
         (IntPtr future, ref UniffiRustCallStatus status) => {
-            {%- if func.return_type().is_some() %}
-            return {% endif %}_UniFFILib.{{ func.ffi_rust_future_complete(ci) }}(future, ref status);
+            {%- match func.return_type() %}
+            {%- when Some(return_type) %}
+            {%- match return_type %}
+            {%- when Type::Object { .. } %}
+            // Objects are returned as u64 handles from the FFI, but Lift expects IntPtr
+            return (IntPtr)_UniFFILib.{{ func.ffi_rust_future_complete(ci) }}(future, ref status);
+            {%- else %}
+            return _UniFFILib.{{ func.ffi_rust_future_complete(ci) }}(future, ref status);
+            {%- endmatch %}
+            {%- else %}
+            _UniFFILib.{{ func.ffi_rust_future_complete(ci) }}(future, ref status);
+            {%- endmatch %}
         },
         // Free
         (IntPtr future) => _UniFFILib.{{ func.ffi_rust_future_free(ci) }}(future),
