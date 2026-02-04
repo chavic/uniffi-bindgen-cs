@@ -2,13 +2,17 @@ class ConcurrentHandleMap<T> where T: notnull {
     Dictionary<ulong, T> map = new Dictionary<ulong, T>();
 
     Object lock_ = new Object();
-    ulong currentHandle = 0;
+    // Foreign handles must be odd so the Rust side can distinguish them from Rust-owned pointers.
+    // See: https://mozilla.github.io/uniffi-rs/latest/internals/object_references.html
+    ulong currentHandle = 1;
 
     public ulong Insert(T obj) {
         lock (lock_) {
-            currentHandle += 1;
-            map[currentHandle] = obj;
-            return currentHandle;
+            var handle = currentHandle;
+            // Increment by 2 to keep handles odd.
+            currentHandle += 2;
+            map[handle] = obj;
+            return handle;
         }
     }
 
