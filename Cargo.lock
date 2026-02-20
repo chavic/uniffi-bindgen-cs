@@ -280,6 +280,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b94f61472cee1439c0b966b47e3aca9ae07e45d070759512cd390ea2bebc6675"
 
 [[package]]
+name = "csharp-gap-fixes"
+version = "0.1.0"
+dependencies = [
+ "uniffi 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "uniffi_macros 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "displaydoc"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1171,15 +1179,6 @@ dependencies = [
 
 [[package]]
 name = "toml"
-version = "0.5.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f4f7f0dd8d50a853a531c426359045b1998f04219d88799810762cd4ad314234"
-dependencies = [
- "serde",
-]
-
-[[package]]
-name = "toml"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "75129e1dc5000bfbaa9fee9d1b21f974f9fbad9daec557a521ee6e080825f6e8"
@@ -1282,7 +1281,7 @@ dependencies = [
  "serde",
  "serde_json",
  "textwrap",
- "toml 0.5.11",
+ "toml",
  "uniffi_bindgen 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "uniffi_meta 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "uniffi_udl 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1292,6 +1291,7 @@ dependencies = [
 name = "uniffi-bindgen-cs-fixtures"
 version = "0.1.0"
 dependencies = [
+ "csharp-gap-fixes",
  "global-methods-class-name",
  "issue-110",
  "issue-28",
@@ -1529,7 +1529,7 @@ dependencies = [
  "serde",
  "tempfile",
  "textwrap",
- "toml 0.9.5",
+ "toml",
  "uniffi_internal_macros 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "uniffi_meta 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "uniffi_pipeline 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1555,7 +1555,7 @@ dependencies = [
  "serde",
  "tempfile",
  "textwrap",
- "toml 0.9.5",
+ "toml",
  "uniffi_internal_macros 0.30.0 (git+https://github.com/mozilla/uniffi-rs.git?tag=v0.30.0)",
  "uniffi_meta 0.30.0 (git+https://github.com/mozilla/uniffi-rs.git?tag=v0.30.0)",
  "uniffi_pipeline 0.30.0 (git+https://github.com/mozilla/uniffi-rs.git?tag=v0.30.0)",
@@ -1645,7 +1645,7 @@ dependencies = [
  "quote",
  "serde",
  "syn 2.0.104",
- "toml 0.9.5",
+ "toml",
  "uniffi_meta 0.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -1661,7 +1661,7 @@ dependencies = [
  "quote",
  "serde",
  "syn 2.0.104",
- "toml 0.9.5",
+ "toml",
  "uniffi_meta 0.30.0 (git+https://github.com/mozilla/uniffi-rs.git?tag=v0.30.0)",
 ]
 
