@@ -122,7 +122,8 @@ pub(super) fn method_name(nm: &str, class_name: &str) -> Result<String, askama::
     let method_name = oracle().fn_name(nm);
     // In C#, a member cannot have the same name as its enclosing type (CS0542)
     if method_name == class_name {
-        Ok(format!("{}Method", method_name))
+        // Use a suffix that avoids clashing with user-defined `*_method` members.
+        Ok(format!("{}ClassMethod", method_name))
     } else {
         Ok(method_name)
     }
@@ -210,12 +211,18 @@ pub(super) fn or_pos_var(nm: &str, pos: &usize) -> Result<String, askama::Error>
 }
 
 /// Generate correct C# array creation expression for jagged arrays
-/// byte[] -> new byte[length][] (not new byte[][length])
+/// byte[] -> new byte[length][]
+/// byte[][] -> new byte[length][][]
 pub(super) fn array_new_expr(inner_type_name: &str) -> Result<String, askama::Error> {
-    if inner_type_name.ends_with("[]") {
-        // For jagged arrays like byte[], insert length before the trailing []
-        let base = &inner_type_name[..inner_type_name.len() - 2];
-        Ok(format!("new {base}[length][]"))
+    let mut base = inner_type_name;
+    let mut dimensions = 0usize;
+    while let Some(stripped) = base.strip_suffix("[]") {
+        base = stripped;
+        dimensions += 1;
+    }
+
+    if dimensions > 0 {
+        Ok(format!("new {base}[length]{}", "[]".repeat(dimensions)))
     } else {
         Ok(format!("new {inner_type_name}[length]"))
     }
